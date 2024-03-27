@@ -33,7 +33,7 @@ PrivateDependencyModuleNames.Add("NewRelic");
 ## Basic configuration#
 Configure your API key through Unreal Editor’s Project Settings window, under Plugins → NewRelic.
 
-![NewRelic SDK Configuration](images/newrelic_sdk_installation.png)
+![NewRelic SDK Configuration](images/newrelic_sdk_configuration.png)
 
 Or in Config/DefaultEngine.ini:
 [/Script/NewRelic.NewRelicSDKSettings]
