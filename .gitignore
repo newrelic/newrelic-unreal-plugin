@@ -77,10 +77,7 @@ DerivedDataCache/*
 .gradle
 .DS_Store
 
-# Bugsnag specific
-Plugins/Bugsnag/Source/ThirdParty/BugsnagCocoa/include
-deps/bugsnag-plugin-android-unreal/build
-maze_output/*
+
 *.log
 *.zip
 .idea/

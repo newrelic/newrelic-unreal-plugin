@@ -10,8 +10,6 @@ public class NewRelicExample : ModuleRules
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore","NewRelic" });
 
-		PrivateDependencyModuleNames.Add("Bugsnag");
-
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 		

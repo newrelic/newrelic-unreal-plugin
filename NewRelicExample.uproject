@@ -18,15 +18,6 @@
 				"Editor"
 			]
 		},
-		{
-			"Name": "AppsFlyerSDK",
-			"Enabled": true
-		},
-		{
-			"Name": "Bugsnag",
-			"Enabled": true,
-			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/ffcc20ab75f24db2ad9fb44a973a871f"
-		}
 	],
 	"TargetPlatforms": [
 		"Android",
