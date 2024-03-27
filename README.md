@@ -23,21 +23,21 @@ This agent utilizes the native New Relic Android and iOS agents to instrument Un
 1. Install the NewRelic plugin from the Unreal Engine Marketplace.
 2. Enable the plugin from the Plugins window in Unreal Editor, available in the main menu under Edit → Plugins.
 3. Select NewRelic under “Installed” plugins, and check the “Enabled” checkbox.
-![NewRelic SDK Installation](images/newrelic_sdk_installation.png))
+![NewRelic SDK Installation](images/newrelic_sdk_installation.png)
 4. Click “Restart Now” to continue configuration.
 
 5. Add NewRelic to the list of dependencies in your game module’s .Build.cs file in order to allow interfacing with NewRelic from C++ code:
 
-PrivateDependencyModuleNames.Add("NewRelic");
+**PrivateDependencyModuleNames.Add("NewRelic");**
 
 ## Basic configuration#
 Configure your API key through Unreal Editor’s Project Settings window, under Plugins → NewRelic.
 
 ![NewRelic SDK Configuration](images/newrelic_sdk_configuration.png)
 
-Or in Config/DefaultEngine.ini:
-[/Script/NewRelic.NewRelicSDKSettings]
-newrelicAppToken=application-token
+Or in **Config/DefaultEngine.ini**:\
+**[/Script/NewRelic.NewRelicSDKSettings]**\
+newrelicAppToken=application-token\
 newrelicAppTokenIOS=ios-application-token
 
 ## Usage
@@ -57,9 +57,8 @@ See the examples below, and for more detail, see [New Relic IOS SDK doc](https:/
 
   ```C++
 
-     #include "NewRelicBPLibrary.h"
+    #include "NewRelicBPLibrary.h"
 
-  
     FString id =  UNewRelicBPLibrary::startInterAction("test Unreal InterAction");
 
     FPlatformProcess::Sleep(6.0);   
