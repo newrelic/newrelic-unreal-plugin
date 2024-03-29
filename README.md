@@ -19,14 +19,25 @@ This agent utilizes the native New Relic Android and iOS agents to instrument Un
 - Depends on New Relic iOS/XCFramework and Android agents
 
 ## Installation
-**From the Unreal Engine Marketplace**
+
+1. In your game’s root directory, create a folder named Plugins
+   Copy the NewRelic folder From Plugins into it. You should have something like
+
+```
+  MyProject
+  ├── Plugins
+          └── NewRelic
+              └── NewRelic.uplugin
+```
+
+<!--- **From the Unreal Engine Marketplace**
 1. Install the NewRelic plugin from the Unreal Engine Marketplace.
 2. Enable the plugin from the Plugins window in Unreal Editor, available in the main menu under Edit → Plugins.
-3. Select NewRelic under “Installed” plugins, and check the “Enabled” checkbox.
+3. Select NewRelic under “Installed” plugins, and check the “Enabled” checkbox. --->
 ![NewRelic SDK Installation](images/newrelic_sdk_installation.png)
-4. Click “Restart Now” to continue configuration.
+2. Click “Restart Now” to continue configuration.
 
-5. Add NewRelic to the list of dependencies in your game module’s .Build.cs file in order to allow interfacing with NewRelic from C++ code:
+3. Add NewRelic to the list of dependencies in your game module’s .Build.cs file in order to allow interfacing with NewRelic from C++ code:
 
 **PrivateDependencyModuleNames.Add("NewRelic");**
 
