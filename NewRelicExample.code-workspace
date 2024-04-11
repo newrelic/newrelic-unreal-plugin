@@ -1,0 +1,39 @@
+{
+	"folders": [
+		{
+			"name": "NewRelicExample",
+			"path": "."
+		},
+		{
+			"name": "UE5",
+			"path": "/Users/Shared/Epic Games/UE_5.2"
+		}
+	],
+	"settings": {
+		"typescript.tsc.autoDetect": "off",
+		"files.associations": {
+			"*.ipp": "cpp",
+			"__bit_reference": "cpp",
+			"__node_handle": "cpp",
+			"atomic": "cpp",
+			"bitset": "cpp",
+			"__memory": "cpp",
+			"limits": "cpp",
+			"locale": "cpp",
+			"optional": "cpp",
+			"ratio": "cpp",
+			"system_error": "cpp",
+			"tuple": "cpp",
+			"vector": "cpp"
+		}
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-vscode.cpptools",
+			"ms-dotnettools.csharp",
+			"vadimcn.vscode-lldb",
+			"ms-vscode.mono-debug",
+			"dfarley1.file-picker"
+		]
+	}
+}
