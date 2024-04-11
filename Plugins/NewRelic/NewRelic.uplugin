@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "NewRelic",
+	"Description": "monitors your Unreal mobile app and provides deep insights into your app's performance, errors, and user experience",
+	"Category": "Analytics",
+	"CreatedBy": "NewRelic Inc",
+	"CreatedByURL": "https://newrelic.com/",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "NewRelic",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}

@@ -1,0 +1,167 @@
+<root xmlns:android="http://schemas.android.com/apk/res/android">
+    <buildGradleAdditions>
+        <insert>
+            dependencies {
+                    implementation 'com.newrelic.agent.android:android-agent:7.3.0'
+            }
+            apply plugin: 'newrelic'
+        </insert>
+    </buildGradleAdditions>
+        <!--  optional app build.gradle additions -->
+    <buildscriptGradleAdditions>
+    <insert>
+        	dependencies {
+				classpath "com.newrelic.agent.android:agent-gradle-plugin:6.6.0"
+            }
+    </insert>
+    </buildscriptGradleAdditions>
+    <androidManifestUpdates>
+        <addPermission android:name="android.permission.INTERNET" />
+        <addPermission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    </androidManifestUpdates>
+
+     <proguardAdditions>
+        <if condition="bEnabled">
+            <true>
+                <insert>
+                -keep class com.newrelic.** { *; }
+                -dontwarn com.newrelic.**
+                -keepattributes Exceptions, Signature, InnerClasses, LineNumberTable, SourceFile, EnclosingMethod
+
+                ##
+                ## NewRelic Gradle plugin 7.x may require the following additions:
+                ##
+                # Retain generic signatures of TypeToken and its subclasses if R8 version 3.0 full-mode is enabled.
+                # https://r8.googlesource.com/r8/+/refs/heads/master/compatibility-faq.md#r8-full-mode
+                -keepattributes Signature
+                -keep class com.newrelic.com.google.gson.reflect.TypeToken { *; }
+                -keep class * extends com.newrelic.com.google.gson.reflect.TypeToken
+                # For using GSON @Expose annotation
+                -keepattributes *Annotation*
+                -keep class org.apache.http.** { *; }
+                -dontwarn org.apache.http.**
+                    
+                -keep class okhttp3.** { *; }
+                -dontwarn okhttp3.**
+                -dontwarn okio.**
+                </insert>
+            </true>
+        </if>
+    </proguardAdditions>
+
+    <gameActivityImportAdditions>
+        <insert>
+            import com.newrelic.agent.android.NewRelic;
+            import java.util.ArrayList;
+            import java.util.HashMap;
+            import java.util.List;
+            import java.util.Map;
+            import com.newrelic.agent.android.FeatureFlag;
+            import com.newrelic.agent.android.logging.AgentLog;
+
+        </insert>
+    </gameActivityImportAdditions>
+    <gameActivityClassAdditions>
+        <insert>
+
+            public void AndroidThunk_StartAgent(String applicationToken) {
+                NewRelic.enableFeature(FeatureFlag.NativeReporting);
+                NewRelic.withApplicationToken(applicationToken)
+                .withLogLevel(AgentLog.VERBOSE)
+                .start(this);
+            }
+
+            public void AndroidThunk_RecordBreadCrumb(String breadcrumbName, Map&lt;String, Object&gt; attributes) {
+                NewRelic.recordBreadcrumb(breadcrumbName,attributes);
+            }
+
+            public void AndroidThunk_RecordBreadCrumb(String breadcrumbName) {
+                NewRelic.recordBreadcrumb(breadcrumbName);
+            }
+    
+    public void AndroidThunk_RecordCustomEvent(String eventType, String eventName, Map&lt;String, Object&gt; eventAttributes) {
+        NewRelic.recordCustomEvent(eventType,eventName,eventAttributes);
+    }
+
+     public void AndroidThunk_RecordCustomEvent(String eventType, Map&lt;String, Object&gt; eventAttributes) {
+        NewRelic.recordCustomEvent(eventType,eventAttributes);
+    }
+
+    public void AndroidThunk_SetUserId(String userId) {
+        NewRelic.setUserId(userId);
+    }
+    public void AndroidThunk_SetStringAttribute(String name, String value) {
+        NewRelic.setAttribute(name,value);
+    }
+     public void AndroidThunk_SetDoubleAttribute(String name, double value) {
+        NewRelic.setAttribute(name,value);
+    }
+    public void AndroidThunk_SetBooleanAttribute(String name, boolean value) {
+        NewRelic.setAttribute(name,value);
+    }
+    public void AndroidThunk_RemoveAttribute(String name) {
+        NewRelic.removeAttribute(name);
+    }
+
+    public void AndroidThunk_RemoveAllAttributes() {
+        NewRelic.removeAllAttributes();
+    }
+    public void AndroidThunk_IncrementAttribute(String name) {
+        NewRelic.incrementAttribute(name);
+    }
+    public void AndroidThunk_IncrementAttribute(String name, double value) {
+        NewRelic.incrementAttribute(name,value);
+    }
+    public void AndroidThunk_SetMaxEventBufferTime(int maxBufferTimeInSec) {
+        NewRelic.setMaxEventBufferTime(maxBufferTimeInSec);
+    }
+    public void AndroidThunk_SetMaxEventPoolSize(int maxsize) {
+        NewRelic.setMaxEventPoolSize(maxsize);
+    }
+    public void AndroidThunk_Shutdown() {
+        NewRelic.shutdown();
+    }
+
+    public void AndroidThunk_CrashNow(String message) {
+        NewRelic.crashNow(message);
+    }
+
+    public void AndroidThunk_RecordError(String errorMessage,Map&lt;String, Object&gt; errorAttributes) {
+        NewRelic.recordHandledException(new Exception(errorMessage),errorAttributes);        
+    }
+
+    public String AndroidThunk_StartInterAction(String interactionName) {
+            return NewRelic.startInteraction("testException");    
+    }
+
+     public void AndroidThunk_EndInterAction(String interActionID) {
+          NewRelic.endInteraction(interActionID);  
+     }
+
+     public String AndroidThunk_CurrentSessionId() {
+        return NewRelic.currentSessionId();
+    }
+
+    public void AndroidThunk_DisableFeatures(Map&lt;String, Boolean&gt; features) {
+
+        if (!Boolean.TRUE.equals(features.getOrDefault("crashReportingEnabled", true))) {
+            NewRelic.disableFeature(FeatureFlag.CrashReporting);
+        }
+
+        if (!Boolean.TRUE.equals(features.getOrDefault("interactionTracingEnabled", true))) {
+            NewRelic.disableFeature(FeatureFlag.InteractionTracing);
+            NewRelic.disableFeature(FeatureFlag.DefaultInteractions);
+        }
+        
+        if (!Boolean.TRUE.equals(features.getOrDefault("analyticsEventEnabled", true))) {
+            NewRelic.disableFeature(FeatureFlag.AnalyticsEvents);
+        }
+
+        if (!Boolean.TRUE.equals(features.getOrDefault("offlineMonitoringEnabled", true))) {
+            NewRelic.disableFeature(FeatureFlag.OfflineStorage);
+        }  
+    }
+
+        </insert>
+    </gameActivityClassAdditions>
+</root>
