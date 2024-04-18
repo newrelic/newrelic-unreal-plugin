@@ -257,7 +257,7 @@ Using Blueprint:
 ```C++
      #include "NewRelicBPLibrary.h"      
 
-    UNewRelicBPLibrary::crashNow();
+    UNewRelicBPLibrary::crashNow("This is test");
 ```
 
 

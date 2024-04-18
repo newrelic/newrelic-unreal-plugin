@@ -6,6 +6,7 @@
 #include "Interfaces/IHttpRequest.h"
 #include "Interfaces/IHttpResponse.h"
 #include "Engine/Engine.h"
+#include "NewRelicSDKSettings.h"
 #if PLATFORM_ANDROID
 #include "Android/AndroidJNI.h"
 #include "Android/AndroidApplication.h"
@@ -24,128 +25,12 @@ UNewRelicBPLibrary::UNewRelicBPLibrary(const FObjectInitializer& ObjectInitializ
 {
 
 }
-int b = 0;
-float UNewRelicBPLibrary::NewRelicSampleFunction(float Param)
-{
 
-    b++;
-    if(b < 100) {
+float UNewRelicBPLibrary::NewRelicSampleFunction(float Param) {
 
-   
-     UE_LOG(LogTemp, Warning, TEXT("NEWRELIC!"));
-    }
-
-if (b == 3) {
-
-    FString id =  startInterAction("test Unreal InterAction");
-
-    FPlatformProcess::Sleep(6.0);   
-
-    endInterAction(id);
+    return -1;
 }
 
-
-if(b > 100 && b < 105) {
-
-if(b == 102) {
-      TMap<FString, FString> errorsMap;
-      errorsMap.Add("place", TEXT("Robots"));
-      errorsMap.Add("user", TEXT("Nisarg"));
-      recordError(TEXT("Error Message"), errorsMap);
-}
-
-
-
-    // int x = 2147483647;
-    //
-    // x= x+1k
-    // check(0); 
-    // FString nis = "Test";
-    // nis.RemoveAt(10);
-    // UE_LOG(LogTemp, Fatal, TEXT("NEWRELIC Crash!"));
-
-
-// setUserId("Unreal Engine");
-
-// setBooleanAttribute("From Unreal",true);
-
-// setDoubleAttribute("Unreal Double", 15.0);
-
-// setStringAttribute("Unreal String","Nisarg Desai");
-
-// removeAttribute("Unreal String");
-
-// incrementAttribute("Unreal Double",5.0);
-
-TMap<FString, FString> FruitMap;
-
-FruitMap.Add("5", TEXT("Banana"));
-FruitMap.Add("2", TEXT("Grapefruit"));
-FruitMap.Add("7", TEXT("Pineapple"));
-
-
-// 
-recordCustomEvent("Unreal Event Name", FruitMap);
-
-recordBreadCrumb("Unreal Breadcrumb Without Attribute");
-
-
-FString uriBase = "https://reactnative.dev";
-    FString uriLogin = uriBase + TEXT("/movies.json");
-
-
-    FHttpModule& httpModule = FHttpModule::Get();
-
-    // Create an http request
-    // The request will execute asynchronously, and call us back on the Lambda below
-    TSharedRef<IHttpRequest, ESPMode::ThreadSafe> pRequest = httpModule.CreateRequest();
-
-    // This is where we set the HTTP method (GET, POST, etc)
-    // The Space-Track.org REST API exposes a "POST" method we can use to get
-    // general perturbations data about objects orbiting Earth
-    pRequest->SetVerb(TEXT("GET"));
-
-    // We'll need to tell the server what type of content to expect in the POST data
-
-    // Set the POST content, which contains:
-    // * Identity/password credentials for authentication
-    // * A REST API query
-    //   This allows us to login and get the results is a single call
-    //   Otherwise, we'd need to manage session cookies across multiple calls.
-
-    // Set the http URL
-    pRequest->SetURL(uriLogin);
-
-    // Set the callback, which will execute when the HTTP call is complete
-    pRequest->OnProcessRequestComplete().BindLambda(
-        // Here, we "capture" the 'this' pointer (the "&"), so our lambda can call this
-        // class's methods in the callback.
-        [&](
-            FHttpRequestPtr pRequest,
-            FHttpResponsePtr pResponse,
-            bool connectedSuccessfully) mutable {
-
-        if (connectedSuccessfully) {
-
-            UE_LOG(LogTemp,Warning,TEXT("connected Successfully"));
-        }
-        else {
-            switch (pRequest->GetStatus()) {
-            case EHttpRequestStatus::Failed_ConnectionError:
-                UE_LOG(LogTemp, Error, TEXT("Connection failed."));
-            default:
-                UE_LOG(LogTemp, Error, TEXT("Request failed."));
-            }
-        }
-    });
-
-    // Finally, submit the request for processing
-    pRequest->ProcessRequest();
-
-}
-
-	return -1;
-}
 
 void UNewRelicBPLibrary::start(FString applicationtoken) {
 
@@ -216,6 +101,7 @@ const UNewRelicSDKSettings *defaultSettings = GetDefault<UNewRelicSDKSettings>()
     if(!defaultSettings->offlineMonitoringEnabled) {
       [NewRelic disableFeatures:NRFeatureFlag_OfflineStorage];
     }
+    [NewRelic setPlatform:(NRMAApplicationPlatform)NRMAPlatform_Unreal];
     [NewRelic startWithApplicationToken: token];
   });
 #endif
@@ -576,7 +462,7 @@ FString UNewRelicBPLibrary::currentSessionId() {
 #elif PLATFORM_IOS
     __block NSString *currentsessionId;    
     dispatch_sync(dispatch_get_main_queue(), ^ {
-        currentsessionId = [NewRelic currentsessionId];
+        currentsessionId = [NewRelic currentSessionId];
     });
     return currentsessionId;   
 #else
