@@ -2,7 +2,7 @@
     <buildGradleAdditions>
         <insert>
             dependencies {
-                    implementation 'com.newrelic.agent.android:android-agent:7.3.0'
+                    implementation 'com.newrelic.agent.android:android-agent:7.3.1'
             }
             apply plugin: 'newrelic'
         </insert>

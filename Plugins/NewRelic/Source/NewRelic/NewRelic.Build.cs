@@ -20,7 +20,7 @@ namespace UnrealBuildTool.Rules
 			PrivateIncludePathModuleNames.AddRange(new string[] { "Settings" });
 
 
-			if (Target.Platform == UnrealTargetPlatform.IOS)
+			if (Target.Platform == UnrealTargetPlatform.IOS || Target.Platform == UnrealTargetPlatform.TVOS)
 			{
 				PublicAdditionalFrameworks.Add(
 					   new Framework(
