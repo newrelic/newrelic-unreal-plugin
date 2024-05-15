@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
-	"Version": 1,
-	"VersionName": "1.0",
+	"Version": 2,
+	"VersionName": "1.1",
 	"FriendlyName": "NewRelic",
 	"Description": "monitors your Unreal mobile app and provides deep insights into your app's performance, errors, and user experience",
 	"Category": "Analytics",
@@ -18,7 +18,12 @@
 		{
 			"Name": "NewRelic",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Android",
+				"IOS",
+				"TVOS"
+			]
 		}
 	]
 }
