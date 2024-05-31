@@ -54,15 +54,15 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		Uu2pFL5/AQMkuvEplM1M8UQflV8=
+		MNW/vpHv/y9h1tmaCN7KMSIZ1Ak=
 		</data>
 		<key>Modules/NewRelic.swiftmodule/Project/arm64-apple-tvos-simulator.swiftsourceinfo</key>
 		<data>
-		ZT2Bvu2cb2nDVVpo6UWcfjZX+Us=
+		fSylFk3YxnQmBX6KgPMSGVbBwT8=
 		</data>
 		<key>Modules/NewRelic.swiftmodule/Project/x86_64-apple-tvos-simulator.swiftsourceinfo</key>
 		<data>
-		3JMvGBI+qvUc7ZhCd5jKnrSzw6k=
+		5m7gd7XzMcurHasHlJyIc0SIoI8=
 		</data>
 		<key>Modules/NewRelic.swiftmodule/arm64-apple-tvos-simulator.abi.json</key>
 		<data>
@@ -251,22 +251,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ZT2Bvu2cb2nDVVpo6UWcfjZX+Us=
+			fSylFk3YxnQmBX6KgPMSGVbBwT8=
 			</data>
 			<key>hash2</key>
 			<data>
-			Eu5d0sh6z77aH1EZg2YuEMU1UVEipXd7Z0IgqX1GhGU=
+			DxKk6EmN7IFEKv5NCLPtlAveBLZnMB0K2RweT2ZtiGM=
 			</data>
 		</dict>
 		<key>Modules/NewRelic.swiftmodule/Project/x86_64-apple-tvos-simulator.swiftsourceinfo</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			3JMvGBI+qvUc7ZhCd5jKnrSzw6k=
+			5m7gd7XzMcurHasHlJyIc0SIoI8=
 			</data>
 			<key>hash2</key>
 			<data>
-			fQ3Xx8TxqzOOM0yzndVM4ElGsodAHk+TKdyqAJpSpqw=
+			cC+wmtZdaTyW55UboDRyVnQaFArhl0ilivUJ3MRQEBA=
 			</data>
 		</dict>
 		<key>Modules/NewRelic.swiftmodule/arm64-apple-tvos-simulator.abi.json</key>
