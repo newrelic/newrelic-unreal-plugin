@@ -14,5 +14,8 @@ UNewRelicSDKSettings::UNewRelicSDKSettings(const FObjectInitializer& ObjectIniti
     , loggingEnabled(true)
     , webViewInstrumentation(true)
     , offlineMonitoringEnabled(true)
+    , backgroundReportingEnabled(false)
+    , newEventSystemEnabled(true)
+
 {
 }

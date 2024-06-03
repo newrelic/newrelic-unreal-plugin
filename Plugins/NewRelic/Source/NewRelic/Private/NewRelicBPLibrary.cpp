@@ -101,6 +101,12 @@ const UNewRelicSDKSettings *defaultSettings = GetDefault<UNewRelicSDKSettings>()
     if(!defaultSettings->offlineMonitoringEnabled) {
       [NewRelic disableFeatures:NRFeatureFlag_OfflineStorage];
     }
+    if(!defaultSettings->backgroundReportingEnabled) {
+      [NewRelic disableFeatures:NRFeatureFlag_BackgroundReporting];
+    }
+    if(!defaultSettings->newEventSystemEnabled) {
+      [NewRelic disableFeatures:NRFeatureFlag_NewEventSystem];
+    }
     [NewRelic setPlatform:(NRMAApplicationPlatform)NRMAPlatform_Unreal];
     [NewRelic startWithApplicationToken: token];
   });

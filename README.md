@@ -12,6 +12,7 @@ This agent utilizes the native New Relic Android and iOS agents to instrument Un
 * Pass user information to New Relic to track user sessions
 * offline monitoring of events and exceptions
 * C++ Crashes (iOS Only)
+* Capture Background Events when app is in background
 
 ## Current Support:
 - Android API 24+ (AGP 7 and Higher)
