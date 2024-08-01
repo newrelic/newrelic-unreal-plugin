@@ -2,7 +2,7 @@
     <buildGradleAdditions>
         <insert>
             dependencies {
-                    implementation 'com.newrelic.agent.android:android-agent:7.3.1'
+                    implementation 'com.newrelic.agent.android:android-agent:7.5.0'
             }
             apply plugin: 'newrelic'
         </insert>
@@ -69,7 +69,7 @@
                 NewRelic.enableFeature(FeatureFlag.NativeReporting);
                 NewRelic.withApplicationToken(applicationToken)
                 .withLogLevel(AgentLog.DEBUG)
-                .withApplicationFramework(ApplicationFramework.Unreal, "1.0")
+                .withApplicationFramework(ApplicationFramework.Unreal, "1.3")
                 .start(this);
             }
 
@@ -144,6 +144,30 @@
         return NewRelic.currentSessionId();
     }
 
+            public void AndroidThunk_LogInfo(String message) {
+                NewRelic.logInfo(message);
+            }
+
+            public void AndroidThunk_LogError(String message) {
+                NewRelic.logError(message);
+            }
+
+            public void AndroidThunk_LogVerbose(String message) {
+                NewRelic.logVerbose(message);
+            }
+
+            public void AndroidThunk_LogWarning(String message) {
+                NewRelic.logVerbose(message);
+            }
+
+            public void AndroidThunk_LogDebug(String message) {
+                NewRelic.logDebug(message);
+            }
+
+            public void AndroidThunk_LogAttributes(Map&lt;String, Object&gt; attributes) {
+                NewRelic.logAttributes(attributes);
+            }
+
     public void AndroidThunk_DisableFeatures(Map&lt;String, Boolean&gt; features) {
 
         if (!Boolean.TRUE.equals(features.getOrDefault("crashReportingEnabled", true))) {
@@ -161,7 +185,15 @@
 
         if (!Boolean.TRUE.equals(features.getOrDefault("offlineMonitoringEnabled", true))) {
             NewRelic.disableFeature(FeatureFlag.OfflineStorage);
-        }  
+        } else {
+            NewRelic.enableFeature(FeatureFlag.OfflineStorage);
+        }
+
+            if (!Boolean.TRUE.equals(features.getOrDefault("backgroundReportingEnabled", true))) {
+                NewRelic.disableFeature(FeatureFlag.BackgroundReporting);
+            } else {
+                NewRelic.enableFeature(FeatureFlag.BackgroundReporting);
+            }
     }
 
         </insert>

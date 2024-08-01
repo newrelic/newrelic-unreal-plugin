@@ -45,4 +45,12 @@ public:
    // Enable/Disable Offline Monitoring
     UPROPERTY(Config, EditAnywhere, config, Category = "New Relic", meta = (DisplayName = "Enable/Disable Offline Monitoring"))
     bool offlineMonitoringEnabled;
+
+	// Enable/Disable automatic instrumentation of WebViews
+	UPROPERTY(Config, EditAnywhere, config, Category = "New Relic", meta = (DisplayName = "Enable or disable background reporting functionality."))
+	bool backgroundReportingEnabled;
+
+	// Enable/Disable Offline Monitoring
+	UPROPERTY(Config, EditAnywhere, config, Category = "New Relic", meta = (DisplayName = "able or disable to use our new, more stable, event system for iOS agent."))
+	bool newEventSystemEnabled;
 };

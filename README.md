@@ -261,6 +261,71 @@ Using Blueprint:
     UNewRelicBPLibrary::crashNow("This is test");
 ```
 
+### logInfo(FString message) : void
+
+> Logs an informational message to the New Relic log.
+``` C++
+    #include "NewRelicBPLibrary.h"      
+
+    UNewRelicBPLibrary::logInfo("This is an informational message");
+```
+
+
+### logError(FString message) : void
+> Logs an error message to the New Relic log.
+``` C++
+    #include "NewRelicBPLibrary.h"      
+
+    UNewRelicBPLibrary::logError("This is an error message");
+```
+### logVerbose(FString message) : void
+> Logs a verbose message to the New Relic log.
+``` C++
+    #include "NewRelicBPLibrary.h"      
+
+    UNewRelicBPLibrary::logVerbose("This is a verbose message");
+```
+
+### logWarning(FString message) : void
+> Logs a warning message to the New Relic log.
+``` C++
+    #include "NewRelicBPLibrary.h"      
+
+    UNewRelicBPLibrary::logWarning("This is a warning message");
+```
+
+### logDebug(FString message) : void
+> Logs a debug message to the New Relic log.
+``` C++
+    #include "NewRelicBPLibrary.h"      
+
+    UNewRelicBPLibrary::logDebug("This is a debug message");
+```
+
+### log(AgentLogLevel level, FString message) : void
+> Logs a message to the New Relic log with a specified log level.
+``` C++
+    #include "NewRelicBPLibrary.h"      
+
+    UNewRelicBPLibrary::log(AgentLogLevel::Debug, "This is a debug message");
+```
+
+### logAttributes(TMap <FString, FString> attributes) : void
+> Logs a message with attributes to the New Relic log.
+``` C++
+    #include "NewRelicBPLibrary.h"      
+
+    TMap<FString, FString> attributes;
+    attributes.Add("place", TEXT("Robots"));
+    attributes.Add("user", TEXT("user1"));
+    attributes.Add("level", TEXT("DEBUG"));
+    attributes.Add("message", TEXT("This is a debug message"));
+
+    UNewRelicBPLibrary::logAttributes(attributes);
+```
+
+
+
 ## Contribute
 
 We encourage your contributions to improve `newrelic-unreal-plugin`! Keep in mind that when you submit your pull request, you'll need to sign the CLA via the click-through using CLA-Assistant. You only have to sign the CLA one time per project.

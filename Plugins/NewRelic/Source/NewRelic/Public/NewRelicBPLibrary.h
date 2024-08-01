@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AgentLogLevel.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "NewRelicBPLibrary.generated.h"
 
@@ -26,6 +27,7 @@ UCLASS()
 class UNewRelicBPLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_UCLASS_BODY()
+	
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Sample function", Keywords = "NewRelic sample test testing"), Category = "NewRelicTesting")
 	static float NewRelicSampleFunction(float Param);
@@ -89,4 +91,26 @@ class UNewRelicBPLibrary : public UBlueprintFunctionLibrary
 
 	UFUNCTION(BlueprintCallable, Category = NewRelicSDK, DisplayName = "NewRelicSDK Get Current Session ID")
 	static FString currentSessionId();
+
+	UFUNCTION(BlueprintCallable, Category = NewRelicSDK, DisplayName = "NewRelicSDK Logs an informational message to the New Relic log.")
+	static void logInfo(FString message);
+
+	UFUNCTION(BlueprintCallable, Category = NewRelicSDK, DisplayName = "NewRelicSDK Logs a verbose message to the New Relic log.")
+	static void logVerbose(FString message);
+
+	UFUNCTION(BlueprintCallable, Category = NewRelicSDK, DisplayName = "NewRelicSDK Logs an error message to the New Relic log..")
+	static void logError(FString message);
+
+	UFUNCTION(BlueprintCallable, Category = NewRelicSDK, DisplayName = "NewRelicSDK Logs a warning message to the New Relic log.")
+	static void logWarning(FString message);
+
+	UFUNCTION(BlueprintCallable, Category = NewRelicSDK, DisplayName = "NewRelicSDK Logs a debug message to the New Relic log.")
+	static void logDebug(FString message);
+
+	UFUNCTION(BlueprintCallable, Category = NewRelicSDK, DisplayName = "NewRelicSDK Logs a message with a specific log level to the New Relic log.")
+	static void log(AgentLogLevel level,FString message);
+
+	UFUNCTION(BlueprintCallable, Category = NewRelicSDK, DisplayName = "NewRelicSDK Logs a message with attributes to the New Relic log.")
+	static void logAttributes(TMap <FString, FString> attributes);
+	
 };
