@@ -61,6 +61,10 @@ const UNewRelicSDKSettings *defaultSettings = GetDefault<UNewRelicSDKSettings>()
         env->CallObjectMethod(map, putMethod, env->NewStringUTF("offlineMonitoringEnabled"), false);
      }
 
+    if(!defaultSettings->backgroundReportingEnabled) {
+        env->CallObjectMethod(map, putMethod, env->NewStringUTF("backgroundReportingEnabled"), false);
+    }
+
      jmethodID disableFeatures = FJavaWrapper::FindMethod(env,
                                     FJavaWrapper::GameActivityClassID,
                                     "AndroidThunk_DisableFeatures",
@@ -108,7 +112,9 @@ const UNewRelicSDKSettings *defaultSettings = GetDefault<UNewRelicSDKSettings>()
       [NewRelic disableFeatures:NRFeatureFlag_NewEventSystem];
     }
     [NewRelic setPlatform:(NRMAApplicationPlatform)NRMAPlatform_Unreal];
-    [NewRelic startWithApplicationToken: token];
+      SEL selector = NSSelectorFromString(@"setPlatformVersion:");
+      [NewRelic performSelector:selector withObject:@"1.3.0"];
+      [NewRelic startWithApplicationToken: token];
   });
 #endif
 }
@@ -536,6 +542,158 @@ void UNewRelicBPLibrary::recordError(FString errorMessage,TMap <FString, FString
 #endif
 }
 
+void UNewRelicBPLibrary::logInfo(FString message)
+{
+#if PLATFORM_ANDROID
+    JNIEnv* env = FAndroidApplication::GetJavaEnv();
+    jmethodID logInfo = FJavaWrapper::FindMethod(env,
+                                    FJavaWrapper::GameActivityClassID,
+                                    "AndroidThunk_LogInfo",
+                                    "(Ljava/lang/String;)V", false);
+    jstring jMessage = env->NewStringUTF(TCHAR_TO_UTF8(*message));
+    FJavaWrapper::CallVoidMethod(env, FJavaWrapper::GameActivityThis, logInfo, jMessage);
+    return;
+#elif PLATFORM_IOS
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [NewRelic logInfo:message.GetNSString()];
+    });
+#else
+    return;
+#endif
+    
+}
+
+void UNewRelicBPLibrary::logVerbose(FString message)
+{
+#if PLATFORM_ANDROID
+    JNIEnv* env = FAndroidApplication::GetJavaEnv();
+    jmethodID logVerbose = FJavaWrapper::FindMethod(env,
+                                    FJavaWrapper::GameActivityClassID,
+                                    "AndroidThunk_LogVerbose",
+                                    "(Ljava/lang/String;)V", false);
+    jstring jMessage = env->NewStringUTF(TCHAR_TO_UTF8(*message));
+    FJavaWrapper::CallVoidMethod(env, FJavaWrapper::GameActivityThis, logVerbose, jMessage);
+    return;
+#elif PLATFORM_IOS
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [NewRelic logVerbose:message.GetNSString()];
+    });
+#else
+    return;
+#endif
+}
+
+void UNewRelicBPLibrary::logError(FString message)
+{
+#if PLATFORM_ANDROID
+    JNIEnv* env = FAndroidApplication::GetJavaEnv();
+    jmethodID logError = FJavaWrapper::FindMethod(env,
+                                    FJavaWrapper::GameActivityClassID,
+                                    "AndroidThunk_LogError",
+                                    "(Ljava/lang/String;)V", false);
+    jstring jMessage = env->NewStringUTF(TCHAR_TO_UTF8(*message));
+    FJavaWrapper::CallVoidMethod(env, FJavaWrapper::GameActivityThis, logError, jMessage);
+    return;
+#elif PLATFORM_IOS
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [NewRelic logError:message.GetNSString()];
+    });
+#else
+    return;
+#endif
+}
+
+void UNewRelicBPLibrary::logWarning(FString message)
+{
+#if PLATFORM_ANDROID
+    JNIEnv* env = FAndroidApplication::GetJavaEnv();
+    jmethodID logWarning = FJavaWrapper::FindMethod(env,
+                                    FJavaWrapper::GameActivityClassID,
+                                    "AndroidThunk_LogWarning",
+                                    "(Ljava/lang/String;)V", false);
+    jstring jMessage = env->NewStringUTF(TCHAR_TO_UTF8(*message));
+    FJavaWrapper::CallVoidMethod(env, FJavaWrapper::GameActivityThis, logWarning, jMessage);
+    return;
+#elif PLATFORM_IOS
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [NewRelic logWarning:message.GetNSString()];
+    });
+#else
+    return;
+#endif
+}
+
+void UNewRelicBPLibrary::logDebug(FString message)
+{
+#if PLATFORM_ANDROID
+    JNIEnv* env = FAndroidApplication::GetJavaEnv();
+    jmethodID logDebug = FJavaWrapper::FindMethod(env,
+                                    FJavaWrapper::GameActivityClassID,
+                                    "AndroidThunk_LogDebug",
+                                    "(Ljava/lang/String;)V", false);
+    jstring jMessage = env->NewStringUTF(TCHAR_TO_UTF8(*message));
+    FJavaWrapper::CallVoidMethod(env, FJavaWrapper::GameActivityThis, logDebug, jMessage);
+    return;
+#elif PLATFORM_IOS
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [NewRelic logDebug:message.GetNSString()];
+    });
+#else
+    return;
+#endif
+}
+
+void UNewRelicBPLibrary::log(AgentLogLevel level,FString message)
+{
+
+    if (level == AgentLogLevel::INFO) {
+        logInfo(message);
+    } else if (level == AgentLogLevel::VERBOSE) {
+        logVerbose(message);
+    } else if (level == AgentLogLevel::ERROR) {
+        logError(message);
+    } else if (level == AgentLogLevel::WARNING) {
+        logWarning(message);
+    } else if (level == AgentLogLevel::DEBUG) {
+        logDebug(message);
+    } else
+    {
+        logError(message);
+    }
+}
+
+void UNewRelicBPLibrary::logAttributes(TMap <FString, FString> attributes)
+{
+#if PLATFORM_ANDROID
+    JNIEnv* env = FAndroidApplication::GetJavaEnv();
+    jmethodID logAttributes = FJavaWrapper::FindMethod(env,
+                                    FJavaWrapper::GameActivityClassID,
+                                    "AndroidThunk_LogAttributes",
+                                    "(Ljava/util/Map;)V", false);
+    jclass mapClass = env->FindClass("java/util/HashMap");
+    jmethodID mapConstructor = env->GetMethodID(mapClass, "<init>", "()V");
+    jobject map = env->NewObject(mapClass, mapConstructor);
+    jmethodID putMethod = env->GetMethodID(mapClass, "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
+    for (const TPair<FString, FString>& pair : attributes) {
+        env->CallObjectMethod(map, putMethod, env->NewStringUTF(TCHAR_TO_UTF8(*pair.Key)), env->NewStringUTF(TCHAR_TO_UTF8(*pair.Value)));
+    }
+    FJavaWrapper::CallVoidMethod(env, FJavaWrapper::GameActivityThis, logAttributes, map);
+    return;
+#elif PLATFORM_IOS
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        for (const TPair<FString, FString>& pair : attributes) {
+            [dictionary setValue:pair.Value.GetNSString() forKey:pair.Key.GetNSString()];
+        }
+        
+        [NewRelic logAttributes:dictionary];
+        
+    });
+#else
+    return;
+#endif
+}
 
 
 
