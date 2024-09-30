@@ -1,4 +1,4 @@
-// Some copyright should be here...
+// Copyright (c) 2024 NewRelic. All Rights Reserved.
 
 using UnrealBuildTool;
 using System.IO;
@@ -25,7 +25,7 @@ namespace UnrealBuildTool.Rules
 				PublicAdditionalFrameworks.Add(
 					   new Framework(
 						"NewRelic",
-						"../NewRelic/ThirdParty/IOS/NewRelic.embeddedframework.zip"
+						"../NewRelic/ThirdParty/IOS/NewRelic.framework.zip",null, true
 					)
 				);
 
