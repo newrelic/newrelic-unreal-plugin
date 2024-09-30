@@ -1,3 +1,5 @@
+// Copyright (c) 2024 NewRelic. All Rights Reserved.
+
 #pragma once
 
 #include "CoreMinimal.h"

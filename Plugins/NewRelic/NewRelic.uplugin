@@ -1,29 +1,31 @@
 {
-	"FileVersion": 3,
-	"Version": 2,
-	"VersionName": "1.1",
-	"FriendlyName": "NewRelic",
-	"Description": "monitors your Unreal mobile app and provides deep insights into your app's performance, errors, and user experience",
-	"Category": "Analytics",
-	"CreatedBy": "NewRelic Inc",
-	"CreatedByURL": "https://newrelic.com/",
-	"DocsURL": "",
-	"MarketplaceURL": "",
-	"SupportURL": "",
-	"CanContainContent": true,
-	"IsBetaVersion": false,
-	"IsExperimentalVersion": false,
-	"Installed": false,
-	"Modules": [
-		{
-			"Name": "NewRelic",
-			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"WhitelistPlatforms": [
-				"Android",
-				"IOS",
-				"TVOS"
-			]
-		}
-	]
+    "FileVersion": 3,
+    "Version": 2,
+    "VersionName": "1.3",
+    "FriendlyName": "NewRelic",
+    "Description": "monitors your Unreal mobile app and provides deep insights into your app's performance, errors, and user experience",
+    "Category": "Analytics",
+    "CreatedBy": "NewRelic Inc",
+    "CreatedByURL": "https://newrelic.com/",
+    "DocsURL": "",
+    "MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/2dff326e13214ef5b93733149acfb9f5",
+    "SupportURL": "",
+    "CanContainContent": true,
+    "IsBetaVersion": false,
+    "IsExperimentalVersion": false,
+    "Installed": false,
+    "Modules": [
+        {
+            "Name": "NewRelic",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "WhitelistPlatforms": [
+                "Android",
+                "IOS",
+                "TVOS",
+                "Mac"
+            ]
+        }
+    ],
+    "EngineVersion": "5.4.0"
 }
